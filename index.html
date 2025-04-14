@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция по эксплуатации системы авторизации и регистрации</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <header>
+        <!-- Добавляем ссылки на GitHub и сайт -->
+        <div class="header-links">
+            <a href="https://github.com/temperi/Auth" target="_blank" class="header-link github-link"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://temperi.github.io/Auth/" target="_blank" class="header-link site-link"><i class="fas fa-globe"></i> Сайт</a>
+        </div>
+        <h1>Инструкция по эксплуатации системы авторизации и регистрации</h1>
+        <nav>
+            <ul>
+                <li><a href="#overview">Обзор</a></li>
+                <li><a href="#setup">Установка</a></li>
+                <li><a href="#usage">Использование</a></li>
+                <li><a href="#integration">Интеграция</a></li>
+                <li><a href="#security">Безопасность</a></li>
+                <li><a href="#troubleshooting">Устранение неполадок</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="overview">
+        <h2>Обзор</h2>
+        <p>Данная система предоставляет простой и безопасный способ авторизации и регистрации пользователей на вашем сайте. Она включает в себя:</p>
+        <ul>
+            <li>Форму авторизации (вход).</li>
+            <li>Форму регистрации (создание нового аккаунта).</li>
+            <li>Бэкенд на PHP с использованием PDO для работы с базой данных MySQL.</li>
+            <li>Клиентскую и серверную валидацию данных.</li>
+            <li>Защиту от CSRF-атак и ограничение попыток входа.</li>
+        </ul>
+        <p>Система разработана для легкой интеграции в любой PHP-проект.</p>
+    </section>
+
+    <section id="setup">
+        <h2>Установка</h2>
+        <h3>1. Настройка сервера</h3>
+        <p>Убедитесь, что у вас установлен веб-сервер (например, Apache) с поддержкой PHP (версия 7.4 или выше) и MySQL.</p>
+
+        <h3>2. Создание базы данных</h3>
+        <p>Создайте базу данных с именем <code>temperi_db</code> и выполните следующий SQL-запрос для создания таблицы <code>users</code>:</p>
+        <pre><code>
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+        </code></pre>
+
+        <h3>3. Настройка подключения к базе данных</h3>
+        <p>Откройте файл <code>includes/db.php</code> и настройте параметры подключения:</p>
+        <ul>
+            <li><code>$host</code> — хост базы данных (обычно <code>localhost</code>).</li>
+            <li><code>$db</code> — имя базы данных (<code>temperi_db</code>).</li>
+            <li><code>$user</code> — пользователь базы данных (по умолчанию <code>root</code>).</li>
+            <li><code>$pass</code> — пароль пользователя (по умолчанию пустой).</li>
+        </ul>
+
+        <h3>4. Размещение файлов</h3>
+        <p>Разместите файлы в корневой директории вашего сервера:</p>
+        <ul>
+            <li><code>index.html</code> — главная страница с формами.</li>
+            <li><code>login.php</code> — обработчик авторизации.</li>
+            <li><code>register.php</code> — обработчик регистрации.</li>
+            <li><code>includes/db.php</code> — подключение к базе данных.</li>
+            <li><code>css/styles.css</code> — стили.</li>
+        </ul>
+
+        <h3>5. Проверка</h3>
+        <p>Откройте <code>index.html</code> в браузере (например, <code>http://localhost/index.html</code>) и проверьте, что формы отображаются корректно.</p>
+    </section>
+
+    <section id="usage">
+        <h2>Использование</h2>
+        <h3>1. Регистрация</h3>
+        <p>На главной странице нажмите на ссылку "Зарегистрироваться". Заполните поля:</p>
+        <ul>
+            <li><strong>Имя</strong>: Введите ваше имя (не менее 2 символов).</li>
+            <li><strong>Email</strong>: Укажите действующий email.</li>
+            <li><strong>Пароль</strong>: Введите пароль (не менее 8 символов).</li>
+        </ul>
+        <p>Нажмите "Зарегистрироваться". Если данные корректны, вы увидите сообщение об успешной регистрации.</p>
+
+        <h3>2. Авторизация</h3>
+        <p>Нажмите на ссылку "Войти", если вы находитесь на форме регистрации. Введите:</p>
+        <ul>
+            <li><strong>Email</strong>: Ваш зарегистрированный email.</li>
+            <li><strong>Пароль</strong>: Ваш пароль.</li>
+        </ul>
+        <p>Нажмите "Войти". При успешной авторизации вы увидите приветственное сообщение.</p>
+
+        <h3>3. Ограничения</h3>
+        <p>После 5 неудачных попыток входа доступ будет заблокирован на 5 минут.</p>
+    </section>
+
+    <section id="integration">
+        <h2>Интеграция в ваш проект</h2>
+        <h3>1. Подключение системы</h3>
+        <p>Скопируйте все файлы системы в ваш проект. Убедитесь, что структура директорий совпадает:</p>
+        <pre><code>
+project/
+├── css/
+│   └── styles.css
+├── includes/
+│   └── db.php
+├── index.html
+├── login.php
+└── register.php
+        </code></pre>
+
+        <h3>2. Настройка перенаправления после входа</h3>
+        <p>В файле <code>login.php</code> измените строку перенаправления после успешного входа:</p>
+        <pre><code>
+header('Location: dashboard.php?message=Добро пожаловать, ' . htmlspecialchars($user['name']) . '!&type=success');
+        </code></pre>
+        <p>Создайте файл <code>dashboard.php</code> для защищенной страницы:</p>
+        <pre><code>
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index.html?message=Пожалуйста, войдите в систему.&type=error');
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+</head>
+<body>
+    <h1>Добро пожаловать, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</h1>
+    <a href="logout.php">Выйти</a>
+</body>
+</html>
+        </code></pre>
+        <p>Создайте файл <code>logout.php</code> для выхода:</p>
+        <pre><code>
+<?php
+session_start();
+session_destroy();
+header('Location: index.html?message=Вы вышли из системы.&type=success');
+?>
+        </code></pre>
+
+        <h3>3. Кастомизация стилей</h3>
+        <p>Измените файл <code>css/styles.css</code>, чтобы адаптировать дизайн под ваш проект. Например, измените цвета:</p>
+        <pre><code>
+button {
+    background: #your-color;
+}
+button:hover {
+    background: #your-hover-color;
+}
+        </code></pre>
+    </section>
+
+    <section id="security">
+        <h2>Безопасность</h2>
+        <p>Система включает следующие меры безопасности:</p>
+        <ul>
+            <li><strong>Хеширование паролей</strong>: Пароли хранятся в зашифрованном виде с использованием <code>password_hash</code>.</li>
+            <li><strong>CSRF-защита</strong>: Все формы защищены с помощью CSRF-токенов.</li>
+            <li><strong>Ограничение попыток входа</strong>: После 5 неудачных попыток входа доступ блокируется на 5 минут.</li>
+            <li><strong>Санитизация данных</strong>: Все входные данные проходят валидацию и санитизацию.</li>
+        </ul>
+        <h3>Рекомендации</h3>
+        <p>Для дополнительной безопасности:</p>
+        <ul>
+            <li>Используйте HTTPS для шифрования данных.</li>
+            <li>Настройте заголовки безопасности (например, <code>X-Frame-Options</code>, <code>Content-Security-Policy</code>).</li>
+            <li>Добавьте капчу для защиты от ботов.</li>
+        </ul>
+    </section>
+
+    <section id="troubleshooting">
+        <h2>Устранение неполадок</h2>
+        <h3>1. Ошибка подключения к базе данных</h3>
+        <p>Проверьте параметры в <code>db.php</code>. Убедитесь, что база данных создана и сервер MySQL работает.</p>
+
+        <h3>2. Форма не отправляется</h3>
+        <p>Проверьте консоль браузера (F12) на наличие ошибок JavaScript. Убедитесь, что PHP-сервер настроен корректно.</p>
+
+        <h3>3. Ошибка "Email уже зарегистрирован"</h3>
+        <p>Пользователь с таким email уже существует. Используйте другой email или войдите в систему.</p>
+
+        <h3>4. Слишком много попыток входа</h3>
+        <p>Подождите 5 минут или сбросьте попытки, очистив сессии (например, удалив cookies).</p>
+    </section>
+
+    <footer>
+        <p>Разработано Владимиром Якоревым. Свяжитесь со мной: <a href="mailto:yakorev@gmail.com">yakorev@gmail.com</a></p>
+    </footer>
+</body>
+</html>

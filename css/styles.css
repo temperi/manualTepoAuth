@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    background: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(135deg, #1f1f1f 0%, #333 100%);
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+}
+
+.header-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.header-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.github-link {
+    background-color: #333;
+}
+
+.github-link:hover {
+    background-color: #555;
+}
+
+.site-link {
+    background-color: #007bff;
+}
+
+.site-link:hover {
+    background-color: #0056b3;
+}
+
+.header-link i {
+    margin-right: 0.5rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+nav {
+    margin-top: 1.5rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #ff6600;
+    color: #fff;
+}
+
+section {
+    padding: 3rem;
+    max-width: 900px;
+    margin: 2rem auto;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+h2 {
+    color: #ff6600;
+    border-bottom: 3px solid #ff6600;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    margin-top: 1.5rem;
+    color: #333;
+}
+
+p, ul {
+    margin-bottom: 1rem;
+}
+
+pre {
+    background: #f8f8f8;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #ff6600 0%, #e65c00 100%);
+    color: #fff;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
