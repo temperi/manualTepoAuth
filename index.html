@@ -103,21 +103,7 @@ CREATE TABLE users (
     </section>
 
     <section id="integration">
-        <h2>Интеграция в ваш проект</h2>
-        <h3>1. Подключение системы</h3>
-        <p>Скопируйте все файлы системы в ваш проект. Убедитесь, что структура директорий совпадает:</p>
-        <pre><code>
-project/
-├── css/
-│   └── styles.css
-├── includes/
-│   └── db.php
-├── index.html
-├── login.php
-└── register.php
-        </code></pre>
-
-        <h3>2. Настройка перенаправления после входа</h3>
+        <h3>1. Настройка перенаправления после входа</h3>
         <p>В файле <code>login.php</code> измените строку перенаправления после успешного входа:</p>
         <pre><code>
 header('Location: dashboard.php?message=Добро пожаловать, ' . htmlspecialchars($user['name']) . '!&type=success');
@@ -152,7 +138,7 @@ header('Location: index.html?message=Вы вышли из системы.&type=s
 ?>
         </code></pre>
 
-        <h3>3. Кастомизация стилей</h3>
+        <h3>4. Кастомизация стилей</h3>
         <p>Измените файл <code>css/styles.css</code>, чтобы адаптировать дизайн под ваш проект. Например, измените цвета:</p>
         <pre><code>
 button {
